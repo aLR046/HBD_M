@@ -61,17 +61,6 @@
       opacity: 0.9;
     }
 
-    .music-btn {
-      margin-top: 18px;
-      padding: 8px 20px;
-      border-radius: 20px;
-      border: none;
-      background: rgba(255,255,255,0.7);
-      color: #6c5ce7;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
     @keyframes popUp {
       from { opacity: 0; transform: scale(0.5); }
       to   { opacity: 1; transform: scale(1); }
@@ -87,7 +76,6 @@
       to   { opacity: 1; }
     }
 
-    /* Bunga melayang */
     .flower {
       position: absolute;
       bottom: -50px;
@@ -105,36 +93,38 @@
       from { transform: translateY(0); opacity: 1; }
       to   { transform: translateY(-120vh); opacity: 0; }
     }
+
+    .hint {
+      position: absolute;
+      bottom: 15px;
+      font-size: 0.85em;
+      opacity: 0.8;
+    }
   </style>
 </head>
 <body>
 
-  <!-- Bunga -->
   <div class="flower f1">🌷</div>
   <div class="flower f2">🌸</div>
   <div class="flower f3">💐</div>
   <div class="flower f4">🌹</div>
 
-  <!-- Musik -->
-  <audio id="bgMusic">
+  <audio id="bgMusic" loop>
     <source src="untuk_m.mp3" type="audio/mpeg">
   </audio>
 
-
   <div class="card">
     <div class="icon">💐</div>
-
     <h1>Selamat Ulang Tahun, Mama</h1>
     <div class="name">Mamaku Tercinta ❤️</div>
 
     <div class="typing" id="typing"></div>
 
     <div class="from">— Dengan cinta dan hormat, dari anakmu 💛</div>
-
-    <button class="music-btn" onclick="toggleMusic()">🎵 Musik On / Off</button>
   </div>
 
-  <!-- Script Typing + Musik -->
+  <div class="hint">Sentuh layar untuk memulai musik 🎵</div>
+
   <script>
     const text = "Terima kasih atas semua kasih sayang yang tak pernah habis, doa yang tak pernah putus, dan pengorbanan yang tak pernah lelah. Semoga di usia Mama yang bertambah ini, Allah selalu memberikan kesehatan, kebahagiaan, umur yang panjang, serta keberkahan dalam setiap langkah kehidupan. Aku selalu bangga menjadi anak Mama. 🤍";
 
@@ -148,14 +138,14 @@
     }
     typingEffect();
 
-    const music = document.getElementById("bgMusic");
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-      } else {
-        music.pause();
+    // AUTOPLAY AMAN (tap di mana saja)
+    let started = false;
+    document.body.addEventListener("click", function () {
+      if (!started) {
+        document.getElementById("bgMusic").play();
+        started = true;
       }
-    }
+    });
   </script>
 
 </body>
